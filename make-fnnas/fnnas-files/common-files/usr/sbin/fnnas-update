@@ -541,6 +541,12 @@ update_kernel() {
 
     # Delete kernel tmpfiles
     rm -f *${PLATFORM}-${kernel_name}*.tar.gz sha256sums
+    sync && echo ""
+
+    # Update GRUB configuration
+    echo -e "${STEPS} Start updating GRUB configuration..."
+    update-grub >/dev/null 2>&1
+    [[ "${?}" -eq "0" ]] && echo -e "${INFO} GRUB configuration update completed."
 
     sync && echo ""
 }
